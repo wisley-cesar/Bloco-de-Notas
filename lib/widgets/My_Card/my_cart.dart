@@ -1,41 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:bloco_de_notas/model/bloco_de_notas.dart';
+import 'package:bloco_de_notas/widgets/My_Card/my_cart_to_list.dart';
 
-class MyCart extends StatelessWidget {
-  final String id;
-  final String title;
-  final String description;
-  // final double aspectRatio;
-  const MyCart({
-    super.key,
-    required this.id,
-    required this.title,
-    required this.description,
-    // required this.aspectRatio,
-  });
+class MyCart extends StatefulWidget {
+  const MyCart({super.key});
+
+  @override
+  State<MyCart> createState() => _MyCartState();
+}
+
+class _MyCartState extends State<MyCart> {
+  late BlocoDeNotas argumento;
+  late TextEditingController _controller;
+  bool _isEditing = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    argumento = ModalRoute.of(context)!.settings.arguments as BlocoDeNotas;
+    _controller = TextEditingController(text: argumento.description);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _toggleEditing() {
+    setState(() {
+      _isEditing = !_isEditing;
+    });
+  }
+
+  void _saveDescription() {
+    setState(() {
+      argumento.description = _controller.text;
+      // Aqui você pode adicionar a chamada para a API para salvar a alteração
+      _isEditing = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      
-      color: Theme.of(context).colorScheme.secondary,
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              description,
-              style: TextStyle(
-                fontSize: 13,
-                color: Theme.of(context).colorScheme.surface,
-              ),
-            ),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Detalhes do Item'),
+        actions: [
+          IconButton(
+            icon: Icon(_isEditing ? Icons.check : Icons.edit),
+            onPressed: _isEditing ? _saveDescription : _toggleEditing,
+          ),
+        ],
+      ),
+      body: Center(
+        child: Container(
+          height: argumento.description.length * 2 < 200
+              ? 300
+              : argumento.description.length * 2,
+          child: MyCartToList(
+            id: argumento.id,
+            title: argumento.title,
+            description: argumento.description,
+            isEditing: _isEditing,
+            controller: _controller,
+            onDescriptionChanged: (newDescription) {
+              setState(() {
+                // Atualiza a descrição localmente
+                argumento.description = newDescription;
+              });
+            },
+            onTap: () {
+              if (!_isEditing) {
+                _toggleEditing(); // Ativa o modo de edição ao clicar
+              }
+            },
+          ),
         ),
       ),
     );
