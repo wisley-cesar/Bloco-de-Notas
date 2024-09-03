@@ -1,6 +1,6 @@
 class BlocoDeNotas {
-  final String id;
-  final String title;
+  final int id;
+  String title;
   String description;
 
   BlocoDeNotas({

@@ -5,8 +5,11 @@ class MyCartToList extends StatelessWidget {
   final String title;
   final String description;
   final Function()? onTap;
+  final Function()? onLongPress;
   final bool? isEditing;
-  final TextEditingController? controller;
+  final TextEditingController? titleController;
+  final TextEditingController? descriptionController;
+  final Function(String)? onTitleChanged;
   final Function(String)? onDescriptionChanged;
 
   const MyCartToList({
@@ -15,8 +18,11 @@ class MyCartToList extends StatelessWidget {
     required this.title,
     required this.description,
     required this.onTap,
+    required this.onLongPress,
     this.isEditing = false,
-    this.controller,
+    this.titleController,
+    this.descriptionController,
+    this.onTitleChanged,
     this.onDescriptionChanged,
   });
 
@@ -24,6 +30,7 @@ class MyCartToList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      onLongPress: onLongPress,
       child: Card(
         color: Theme.of(context).colorScheme.secondary,
         elevation: 10,
@@ -31,18 +38,31 @@ class MyCartToList extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 18,
-                    color: Theme.of(context).colorScheme.onSurface),
-              ),
+              isEditing!
+                  ? TextField(
+                      controller: titleController,
+                      onChanged: onTitleChanged,
+                      decoration: InputDecoration(
+                        hintText: 'Digite um novo título...',
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                      keyboardType: TextInputType.name,
+                      maxLines: 1,
+                    )
+                  : Text(
+                      title,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 18,
+                          color: Theme.of(context).colorScheme.onSurface),
+                    ),
               const SizedBox(height: 10),
               isEditing!
                   ? Expanded(
                       child: TextField(
-                        controller: controller,
+                        controller: descriptionController,
                         onChanged: onDescriptionChanged,
                         decoration: InputDecoration(
                           hintText: 'Digite uma nova descrição...',
@@ -51,7 +71,7 @@ class MyCartToList extends StatelessWidget {
                           ),
                         ),
                         maxLines: null,
-                        keyboardType: TextInputType.multiline,
+                        keyboardType: TextInputType.text,
                       ),
                     )
                   : Padding(

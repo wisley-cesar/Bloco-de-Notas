@@ -21,13 +21,21 @@ class PerfilWidget extends StatelessWidget {
         ),
         Text(
           'Perfil',
-          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
+          style: TextStyle(
+            fontWeight: FontWeight.w900,
+            fontSize: 25,
+          ),
         ),
-        CircleAvatar(
-          radius: 25,
-          child: Image.network(
-              'https://github.com/RicardoMouraa/link-bio-bento-box/blob/main/img/smile-icon.png?raw=true'),
-        ),
+        // CircleAvatar(
+        //   radius: 25,
+        //   child: Image.network(
+        //       'https://github.com/RicardoMouraa/link-bio-bento-box/blob/main/img/smile-icon.png?raw=true'),
+        // ),
+        IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(MyRoutes.LOGIN);
+            },
+            icon: Icon(Icons.exit_to_app))
       ],
     );
   }

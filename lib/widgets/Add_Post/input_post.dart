@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class InputPost extends StatelessWidget {
-  final String descripiton;
-  // final TextEditingController controller;
+  final String description;
+  final TextEditingController controller;
 
   const InputPost({
     super.key,
-    required this.descripiton,
+    required this.description,
+    required this.controller,
   });
 
   @override
@@ -19,11 +20,16 @@ class InputPost extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
+          controller: controller,
           decoration: InputDecoration(
-            label: Text(descripiton),
+            labelText: description,
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
+          cursorColor: Theme.of(context).colorScheme.onSurface, // Cor do cursor
+          cursorWidth: 2.0, // Largura do cursor
+          cursorHeight:
+              20.0, // Altura do cursor (pode ser ajustado conforme necessário)
         ),
       ),
     );

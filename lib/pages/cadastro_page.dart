@@ -30,7 +30,7 @@ class CadastroPage extends StatelessWidget {
             InputLogin(
               title: 'E-mail',
               controller: _emailController,
-              messageIputNuul: 'Por favor Digite um e-mail valido',
+              messageInputNull: 'Por favor Digite um user valido',
               obscureText: false,
               textInputType: TextInputType.emailAddress,
             ),
@@ -38,7 +38,7 @@ class CadastroPage extends StatelessWidget {
             InputLogin(
               controller: _passwordController,
               title: 'Senha',
-              messageIputNuul: 'Por Favor digite sua senha',
+              messageInputNull: 'Por Favor digite sua senha',
               obscureText: true,
               textInputType: TextInputType.text,
             ),
@@ -46,7 +46,7 @@ class CadastroPage extends StatelessWidget {
             InputLogin(
               title: 'Confirmar Senha ',
               controller: _passwordControllerConfirme,
-              messageIputNuul: 'Por Favor digite sua senha',
+              messageInputNull: 'Por Favor digite sua senha',
               obscureText: true,
               textInputType: TextInputType.text,
             ),

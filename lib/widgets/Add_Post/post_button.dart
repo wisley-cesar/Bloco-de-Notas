@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class PostButton extends StatelessWidget {
   final String title;
+  final Function() onPressed;
 
   const PostButton({
     super.key,
     required this.title,
+    required this.onPressed,
   });
 
   @override
@@ -13,7 +15,7 @@ class PostButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.primary),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Text(
         title,
         style: TextStyle(

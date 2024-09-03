@@ -1,10 +1,10 @@
-import 'package:bloco_de_notas/model/user_model.dart';
 import 'package:bloco_de_notas/routes/my_routes.dart';
 import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget {
-  final UserModel userModel;
-  const MyAppBar({super.key, required this.userModel});
+  const MyAppBar({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,7 @@ class MyAppBar extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context)
-                  .pushNamed(MyRoutes.MYPERFIL, arguments: userModel);
+              Navigator.of(context).pushNamed(MyRoutes.MYPERFIL);
             },
             child: CircleAvatar(
               radius: 25,
