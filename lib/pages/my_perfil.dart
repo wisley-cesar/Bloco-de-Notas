@@ -1,5 +1,5 @@
 import 'package:bloco_de_notas/model/bloco_de_notas.dart';
-import 'package:bloco_de_notas/model/user_model.dart';
+
 import 'package:bloco_de_notas/service/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:bloco_de_notas/widgets/My_Card/list_to_cards.dart';
